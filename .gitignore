@@ -1,3 +1,11 @@
+# Latex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
 # Object files
 *.o
 *.ko
