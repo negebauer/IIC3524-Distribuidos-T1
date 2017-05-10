@@ -2,6 +2,6 @@
 
 int main(int argc, char const *argv[]) {
   /* code */
-  printf("Here we have to do everythang");
+  printf("Here we have to do everythang\n");
   return 0;
 }
