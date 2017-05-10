@@ -10,14 +10,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void img_normalize(Image *img) {}
-
 void img_destroy(Image *img) {
   for (int i = 0; i < img->height; i++) {
     free(img->pixels[i]);
   }
   free(img->pixels);
   free(img);
+}
+
+static void img_normalize(Image *img) {
+  // return;
+  double max_R = -INFINITY;
+  double max_G = -INFINITY;
+  double max_B = -INFINITY;
+  double min_R = +INFINITY;
+  double min_G = +INFINITY;
+  double min_B = +INFINITY;
+
+  for (int row = 0; row < img->height; row++) {
+    for (int col = 0; col < img->width; col++) {
+      Color c = img->pixels[row][col];
+
+      max_R = fmax(c.R, max_R);
+      max_G = fmax(c.G, max_G);
+      max_B = fmax(c.B, max_B);
+      min_R = fmin(c.R, min_R);
+      min_G = fmin(c.G, min_G);
+      min_B = fmin(c.B, min_B);
+    }
+  }
+
+  for (int row = 0; row < img->height; row++) {
+    for (int col = 0; col < img->width; col++) {
+      Color *c = &(img->pixels[row][col]);
+
+      if (max_R - min_R)
+        c->R = (c->R - min_R) / (max_R - min_R);
+      if (max_G - min_G)
+        c->G = (c->G - min_G) / (max_G - min_G);
+      if (max_B - min_B)
+        c->B = (c->B - min_B) / (max_B - min_B);
+    }
+  }
 }
 
 /** Lee un archivo .png y entrega la imagen */
