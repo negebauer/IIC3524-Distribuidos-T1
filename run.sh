@@ -25,5 +25,4 @@ time ./parallel $img_in $kernel $img_out
 print 'Done parallel'
 echo ''
 
-echo 'Check secuential.log and parallel.log'
 echo 'Done!'
