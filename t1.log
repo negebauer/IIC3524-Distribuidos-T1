@@ -1,0 +1,37 @@
+gcc-7 -lpng -o secuential imagelib/imagelib.c t1/secuential.c -I.
+gcc-7 -lpng -fopenmp -o parallel imagelib/imagelib.c t1/parallel.c -I.
+--- Running secuential ---
+Task: Reading image
+	Time: 1.000000
+Task: Reading mask kernel
+	Time: 0.000000
+Task: Applying mask
+	Time: 17.000000
+Task: Saving image
+	Time: 5.000000
+Task: Clearing resources
+	Time: 0.000000
+
+real	0m22.604s
+user	0m22.088s
+sys	0m0.289s
+--- Done secuential ---
+
+--- Running parallel ---
+Task: Reading image
+	Time: 1.000000
+Task: Reading mask kernel
+	Time: 0.000000
+Task: Applying mask
+	Time: 5.000000
+Task: Saving image
+	Time: 1.000000
+Task: Clearing resources
+	Time: 0.000000
+
+real	0m7.295s
+user	0m41.743s
+sys	0m0.277s
+--- Done parallel ---
+
+Done!
