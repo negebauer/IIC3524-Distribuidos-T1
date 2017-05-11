@@ -19,7 +19,7 @@ void img_destroy(Image *img) {
 }
 
 static void img_normalize(Image *img) {
-  // return;
+  return;
   double max_R = -INFINITY;
   double max_G = -INFINITY;
   double max_B = -INFINITY;
