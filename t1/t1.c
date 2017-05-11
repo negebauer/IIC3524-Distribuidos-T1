@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[]) {
-  /* El programa recibe 3 parametros */
+  /* The program receives 3 params */
   if (argc != 4) {
     printf("Modo de uso: %s <input.png> <kernel.txt> <output.png>\n", argv[0]);
     printf("\t<input.png> es la imagen a filtrar\n");
@@ -12,14 +12,13 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  /* Leemos la imagen a partir del archivo */
+  /* We read the image from the file */
   char *input_file = argv[1];
   Image *img_in = img_png_read_from_file(input_file);
   Image *img_out = img_png_read_from_file(input_file);
 
   /* Let's read the kernel file */
   const char *kernel_file_path = argv[2];
-  // printf("Reading %s\n", kernel_file_path);
   FILE *kernel_file = fopen(kernel_file_path, "r");
   int rows, cols;
   fscanf(kernel_file, "%i %i", &rows, &cols);
@@ -38,18 +37,7 @@ int main(int argc, char *argv[]) {
   }
   fclose(kernel_file);
 
-  // Log the kernel matrix
-  // printf("rows: %i cols: %i\n", rows, cols);
-  // printf("center [%i][%i]\n", center_row, center_col);
-  // for (int row = 0; row < rows; row++) {
-  //   printf("\n");
-  //   for (int col = 0; col < cols; col++) {
-  //     printf("%lf ", kernel[row][col]);
-  //   }
-  // }
-  // printf("\n");
-
-  // Let's create our new image
+  /* Let's create our new image */
   for (int img_row = 0; img_row < img_in->height; img_row++) {
     for (int img_col = 0; img_col < img_in->width; img_col++) {
       // Let's clear the image first
@@ -85,15 +73,15 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  /* Guardamos la imagen como un archivo png */
+  /* We save the filtered image to a png */
   char *output_file = argv[3];
   img_png_write_to_file(img_out, output_file);
 
-  /* Liberamos los recursos asociados a la imagen */
+  /* We release the resources used by the images */
   img_destroy(img_in);
   img_destroy(img_out);
 
-  // Liberamos la matriz del kernel
+  /* We release the resources used by the kernel  */
   for (int row = 0; row < rows; row++) {
     free(kernel[row]);
   }
