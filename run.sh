@@ -17,7 +17,7 @@ print() {
   echo "--- $1 ---"
 }
 print 'Running secuential'
-time ./secuential $img_in $kernel $img_out > secuential.log
+# time ./secuential $img_in $kernel $img_out > secuential.log
 print 'Done secuential'
 echo ''
 print 'Running parallel'

@@ -38,7 +38,8 @@ int main(int argc, char *argv[]) {
   }
   fclose(kernel_file);
 
-  /* Let's create our new image */
+/* Let's create our new image */
+#pragma omp parallel for
   for (int img_row = 0; img_row < img_in->height; img_row++) {
     for (int img_col = 0; img_col < img_in->width; img_col++) {
       // Let's clear the image first
@@ -46,13 +47,18 @@ int main(int argc, char *argv[]) {
       img_out->pixels[img_row][img_col].G = 0;
       img_out->pixels[img_row][img_col].B = 0;
 
+      // int tid = omp_get_thread_num();
+      // printf("Thread %d on row %i col %i\n", tid, img_row, img_col);
+
       // Let's iterate over the kernel
+      // #pragma omp parallel for schedule(dynamic, 1) collapse(2)
       for (int kernel_row = 0; kernel_row < rows; kernel_row++) {
         for (int kernel_col = 0; kernel_col < cols; kernel_col++) {
           // Let's print some thread data
-          int tid = omp_get_thread_num();
-          printf("Thread %d on row %i col %i krow %i kcol %i\n", tid, img_row,
-                 img_col, kernel_row, kernel_col);
+          // int tid = omp_get_thread_num();
+          // printf("Thread %d on row %i col %i krow %i kcol %i\n", tid,
+          // img_row,
+          //        img_col, kernel_row, kernel_col);
 
           // Let's apply the weighted pixels
           int pixel_row = img_row - center_row + kernel_row;
