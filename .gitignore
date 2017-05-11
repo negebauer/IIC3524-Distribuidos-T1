@@ -1,6 +1,7 @@
 # Compiled
 secuential
 parallel
+t1.log
 
 # Object files
 *.o
