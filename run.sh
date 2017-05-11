@@ -17,11 +17,11 @@ print() {
   echo "--- $1 ---"
 }
 print 'Running secuential'
-# time ./secuential $img_in $kernel $img_out > secuential.log
+time ./secuential $img_in $kernel $img_out
 print 'Done secuential'
 echo ''
 print 'Running parallel'
-time ./parallel $img_in $kernel $img_out > parallel.log
+time ./parallel $img_in $kernel $img_out
 print 'Done parallel'
 echo ''
 

@@ -1,6 +1,11 @@
 #include "../imagelib/imagelib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
+void cpuTimePrint(clock_t start, clock_t end) {
+  printf("\tCPU: %f\n", ((double)(end - start)) / CLOCKS_PER_SEC);
+};
 
 int main(int argc, char *argv[]) {
   /* The program receives 3 params */
@@ -12,12 +17,20 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
+  clock_t start, end;
+
   /* We read the image from the file */
+  printf("Task: Reading image\n");
+  start = clock();
   char *input_file = argv[1];
   Image *img_in = img_png_read_from_file(input_file);
   Image *img_out = img_png_read_from_file(input_file);
+  end = clock();
+  cpuTimePrint(start, end);
 
   /* Let's read the kernel file */
+  printf("Task: Reading mask kernel\n");
+  start = clock();
   const char *kernel_file_path = argv[2];
   FILE *kernel_file = fopen(kernel_file_path, "r");
   int rows, cols;
@@ -36,8 +49,12 @@ int main(int argc, char *argv[]) {
     }
   }
   fclose(kernel_file);
+  end = clock();
+  cpuTimePrint(start, end);
 
   /* Let's create our new image */
+  printf("Task: Applying mask\n");
+  start = clock();
   for (int img_row = 0; img_row < img_in->height; img_row++) {
     for (int img_col = 0; img_col < img_in->width; img_col++) {
       // Let's clear the image first
@@ -72,12 +89,20 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+  end = clock();
+  cpuTimePrint(start, end);
 
   /* We save the filtered image to a png */
+  printf("Task: Saving image\n");
+  start = clock();
   char *output_file = argv[3];
   img_png_write_to_file(img_out, output_file);
+  end = clock();
+  cpuTimePrint(start, end);
 
   /* We release the resources used by the images */
+  printf("Task: Clearing resources\n");
+  start = clock();
   img_destroy(img_in);
   img_destroy(img_out);
 
@@ -86,5 +111,7 @@ int main(int argc, char *argv[]) {
     free(kernel[row]);
   }
   free(kernel);
+  end = clock();
+  cpuTimePrint(start, end);
   return 0;
 }
