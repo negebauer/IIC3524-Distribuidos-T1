@@ -8,14 +8,21 @@ make
 # Image and param to use
 img_def='big'
 kernel_def='blur_10'
-if [[ -z $1 ]]; then img_in="test/img_in/${img_def}.png"; else img_in=$1; fi
-if [[ -z $2 ]]; then kernel="test/kernel/${kernel_def}.txt"; else kernel=$2; fi
-if [[ -z $3 ]]; then img_out="test/img_out/${img_def}_${kernel_def}.png"; else img_out=$3; fi
+repeat_def='3'
+if [[ -z $1 ]]; then img_path="test/img/${img_def}.png"; else img_path=$1; fi
+if [[ -z $2 ]]; then kernel_path="test/kernel/${kernel_def}.txt"; else kernel_path=$2; fi
+if [[ -z $3 ]]; then repeat=$repeat_def; else repeat=$3; fi
+
+img_file="${img_path##*/}"
+img_name="${img_file%.*}"
+kernel_file="${kernel_path##*/}"
+kernel_name="${kernel_file%.*}"
+img_out_path="test/out/${img_name}_${kernel_name}_${repeat}.png"
+
+params="$img_path $kernel_path $img_out_path $repeat"
+
 echo "
-Apply mask
-  $kernel
-to image
-  $img_in
+Apply mask $kernel_name to $img_name $repeat times
 "
 
 # Run stuff
@@ -23,7 +30,7 @@ print() {
   echo "--- $1 ---"
 }
 print 'parallel'
-time ./parallel $img_in $kernel $img_out
+time ./parallel $params
 echo ''
 print 'secuential'
-time ./secuential $img_in $kernel $img_out
+time ./secuential $params
