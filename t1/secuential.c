@@ -17,8 +17,11 @@ int main(int argc, char *argv[]) {
 
   /* We read the image from the file */
   char *input_file = argv[1];
-  Image *img_in = img_png_read_from_file(input_file);
-  Image *img_out = img_png_read_from_file(input_file);
+  Image *img_1 = img_png_read_from_file(input_file);
+  Image *img_2 = img_png_read_from_file(input_file);
+  Image *imgs[2];
+  imgs[0] = img_1;
+  imgs[1] = img_2;
 
   /* Let's read the kernel file */
   const char *kernel_file_path = argv[2];
@@ -42,42 +45,52 @@ int main(int argc, char *argv[]) {
 
   /* Let's create our new image */
   time_t start = time(NULL);
-  start = time(NULL);
-  for (int img_row = 0; img_row < img_in->height; img_row++) {
-    for (int img_col = 0; img_col < img_in->width; img_col++) {
-      // Let's clear the image first
-      img_out->pixels[img_row][img_col].R = 0;
-      img_out->pixels[img_row][img_col].G = 0;
-      img_out->pixels[img_row][img_col].B = 0;
+  int repeat = atoi(argv[4]);
+  for (int r = 0; r < repeat; r++) {
+    Image *img_in = imgs[0];
+    Image *img_out = imgs[1];
+    for (int img_row = 0; img_row < img_in->height; img_row++) {
+      for (int img_col = 0; img_col < img_in->width; img_col++) {
+        // Let's clear the image first
+        img_out->pixels[img_row][img_col].R = 0;
+        img_out->pixels[img_row][img_col].G = 0;
+        img_out->pixels[img_row][img_col].B = 0;
 
-      // Let's iterate over the kernel
-      for (int kernel_row = 0; kernel_row < rows; kernel_row++) {
-        for (int kernel_col = 0; kernel_col < cols; kernel_col++) {
-          // Let's apply the weighted pixels
-          int pixel_row = img_row - center_row + kernel_row;
-          int pixel_col = img_col - center_col + kernel_col;
-          float weight = kernel[kernel_row][kernel_col];
-          if (pixel_row < 0) {
-            pixel_row = 0;
-          } else if (pixel_row >= img_in->height) {
-            pixel_row = img_in->height - 1;
+        // Let's iterate over the kernel
+        for (int kernel_row = 0; kernel_row < rows; kernel_row++) {
+          for (int kernel_col = 0; kernel_col < cols; kernel_col++) {
+            // Let's apply the weighted pixels
+            int pixel_row = img_row - center_row + kernel_row;
+            int pixel_col = img_col - center_col + kernel_col;
+            float weight = kernel[kernel_row][kernel_col];
+            if (pixel_row < 0) {
+              pixel_row = 0;
+            } else if (pixel_row >= img_in->height) {
+              pixel_row = img_in->height - 1;
+            }
+            if (pixel_col < 0) {
+              pixel_col = 0;
+            } else if (pixel_col >= img_in->width) {
+              pixel_col = img_in->width - 1;
+            }
+            img_out->pixels[img_row][img_col].R +=
+                weight * img_in->pixels[pixel_row][pixel_col].R;
+            img_out->pixels[img_row][img_col].G +=
+                weight * img_in->pixels[pixel_row][pixel_col].G;
+            img_out->pixels[img_row][img_col].B +=
+                weight * img_in->pixels[pixel_row][pixel_col].B;
           }
-          if (pixel_col < 0) {
-            pixel_col = 0;
-          } else if (pixel_col >= img_in->width) {
-            pixel_col = img_in->width - 1;
-          }
-          img_out->pixels[img_row][img_col].R +=
-              weight * img_in->pixels[pixel_row][pixel_col].R;
-          img_out->pixels[img_row][img_col].G +=
-              weight * img_in->pixels[pixel_row][pixel_col].G;
-          img_out->pixels[img_row][img_col].B +=
-              weight * img_in->pixels[pixel_row][pixel_col].B;
         }
       }
     }
+
+    imgs[0] = img_out;
+    imgs[1] = img_in;
   }
   printf("Apply mask took: %f\n", (double)(time(NULL) - start));
+
+  Image *img_out = imgs[0];
+  Image *img_in = imgs[1];
 
   /* We save the filtered image to a png */
   char *output_file = argv[3];
