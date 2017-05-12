@@ -31,6 +31,9 @@ print() {
 }
 print 'parallel'
 time ./parallel $params
+mv $img_out_path i_parallel.png
 echo ''
 print 'secuential'
 time ./secuential $params
+mv $img_out_path i_secuential.png
+cp i_parallel.png $img_out_path
