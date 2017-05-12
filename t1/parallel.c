@@ -4,10 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-void timePrint(time_t start) {
-  printf("\tTime: %f\n", (double)(time(NULL) - start));
-};
-
 int main(int argc, char *argv[]) {
   /* The program receives 3 params */
   if (argc != 4) {
@@ -18,19 +14,12 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  time_t start;
-
   /* We read the image from the file */
-  printf("Task: Reading image\n");
-  start = time(NULL);
   char *input_file = argv[1];
   Image *img_in = img_png_read_from_file(input_file);
   Image *img_out = img_png_read_from_file(input_file);
-  timePrint(start);
 
   /* Let's read the kernel file */
-  printf("Task: Reading mask kernel\n");
-  start = time(NULL);
   const char *kernel_file_path = argv[2];
   FILE *kernel_file = fopen(kernel_file_path, "r");
   int rows, cols;
@@ -49,11 +38,10 @@ int main(int argc, char *argv[]) {
     }
   }
   fclose(kernel_file);
-  timePrint(start);
 
   /* Let's create our new image */
-  printf("Task: Applying mask\n");
-  start = time(NULL);
+  printf("Apply mask\n");
+  time_t start = time(NULL);
 #pragma omp parallel for
   for (int img_row = 0; img_row < img_in->height; img_row++) {
     for (int img_col = 0; img_col < img_in->width; img_col++) {
@@ -87,18 +75,13 @@ int main(int argc, char *argv[]) {
       }
     }
   }
-  timePrint(start);
+  printf("\tTime: %f\n", (double)(time(NULL) - start));
 
   /* We save the filtered image to a png */
-  printf("Task: Saving image\n");
-  start = time(NULL);
   char *output_file = argv[3];
   img_png_write_to_file(img_out, output_file);
-  timePrint(start);
 
   /* We release the resources used by the images */
-  printf("Task: Clearing resources\n");
-  start = time(NULL);
   img_destroy(img_in);
   img_destroy(img_out);
 
@@ -107,6 +90,5 @@ int main(int argc, char *argv[]) {
     free(kernel[row]);
   }
   free(kernel);
-  timePrint(start);
   return 0;
 }
