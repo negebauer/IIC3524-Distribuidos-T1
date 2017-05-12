@@ -1,0 +1,19 @@
+### START ###
+
+Apply mask blur_3 to really_big 12 times
+
+--- parallel ---
+Apply mask took: 117.000000
+
+real	3m18.036s
+user	13m39.003s
+sys	0m6.183s
+
+--- secuential ---
+Apply mask took: 322.000000
+
+real	6m41.459s
+user	6m26.786s
+sys	0m9.349s
+
+### DONE ###
