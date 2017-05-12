@@ -24,8 +24,6 @@ print() {
 }
 print 'parallel'
 time ./parallel $img_in $kernel $img_out
-print 'parallel'
 echo ''
 print 'secuential'
 time ./secuential $img_in $kernel $img_out
-print 'secuential'
