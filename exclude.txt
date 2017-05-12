@@ -7,6 +7,8 @@ d_hercules.sh
 d_tripio.sh
 deploy.sh
 exclude.txt
+i_parallel.png
+i_secuential.png
 Makefile
 parallel
 README.md
