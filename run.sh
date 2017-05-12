@@ -7,7 +7,7 @@ make
 
 # Image and param to use
 img_def='big'
-kernel_def='blur_6'
+kernel_def='blur_3'
 repeat_def='3'
 if [[ -z $1 ]]; then img_path="test/img/${img_def}.png"; else img_path=$1; fi
 if [[ -z $2 ]]; then kernel_path="test/kernel/${kernel_def}.txt"; else kernel_path=$2; fi
