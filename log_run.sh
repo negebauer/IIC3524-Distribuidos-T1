@@ -1,1 +1,1 @@
-(./run.sh) >> t1.log
+./run.sh >> t1.log 2>&1
