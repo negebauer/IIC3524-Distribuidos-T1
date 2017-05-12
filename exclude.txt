@@ -7,6 +7,7 @@ d_hercules.sh
 d_tripio.sh
 deploy.sh
 exclude.txt
+Makefile
 parallel
 README.md
 secuential
