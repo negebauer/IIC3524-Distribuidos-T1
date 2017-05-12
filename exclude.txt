@@ -1,6 +1,6 @@
-.git/*
+.git
 **/.gitignore
-report/*
+report
 test/img_out/*.png
 atom.command
 d_hercules.sh
