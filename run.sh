@@ -1,5 +1,3 @@
-echo "### START ###"
-
 # Clear previous compiled
 rm secuential
 rm parallel
@@ -24,12 +22,10 @@ to image
 print() {
   echo "--- $1 ---"
 }
-print 'Start parallel'
+print 'parallel'
 time ./parallel $img_in $kernel $img_out
-print 'Done parallel'
+print 'parallel'
 echo ''
-print 'Start secuential'
+print 'secuential'
 time ./secuential $img_in $kernel $img_out
-print 'Done secuential'
-
-echo "### DONE ###"
+print 'secuential'
