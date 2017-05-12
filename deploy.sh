@@ -4,4 +4,4 @@
 # tripioupload T1
 
 cd -- "$(dirname "$BASH_SOURCE")"
-rsync -azP ../T1/ negebauer@hercules.ing.puc.cl:T1/
+rsync -azP --exclude-from 'rsync_exclude.txt' ../t1/ negebauer@hercules.ing.puc.cl:t1

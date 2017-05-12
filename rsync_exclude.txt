@@ -1,0 +1,12 @@
+.git/*
+**/.gitignore
+report/*
+test/img_out/*.png
+atom.command
+deploy.sh
+parallel
+README.md
+rsync_exclude.txt
+secuential
+t1.log
+tarea1.pdf
