@@ -40,7 +40,6 @@ int main(int argc, char *argv[]) {
   fclose(kernel_file);
 
   /* Let's create our new image */
-  printf("Apply mask\n");
   time_t start = time(NULL);
 #pragma omp parallel for
   for (int img_row = 0; img_row < img_in->height; img_row++) {
@@ -75,7 +74,7 @@ int main(int argc, char *argv[]) {
       }
     }
   }
-  printf("\tTime: %f\n", (double)(time(NULL) - start));
+  printf("Apply mask took: %f\n", (double)(time(NULL) - start));
 
   /* We save the filtered image to a png */
   char *output_file = argv[3];
