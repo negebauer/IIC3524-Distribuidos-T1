@@ -13,3 +13,4 @@ README.md
 secuential
 t1.log
 tarea1.pdf
+**/.DS_Store
