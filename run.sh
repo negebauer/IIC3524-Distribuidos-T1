@@ -24,12 +24,12 @@ to image
 print() {
   echo "--- $1 ---"
 }
-print 'Start secuential'
-time ./secuential $img_in $kernel $img_out
-print 'Done secuential'
-echo ''
 print 'Start parallel'
 time ./parallel $img_in $kernel $img_out
 print 'Done parallel'
+echo ''
+print 'Start secuential'
+time ./secuential $img_in $kernel $img_out
+print 'Done secuential'
 
 echo "### DONE ###"
