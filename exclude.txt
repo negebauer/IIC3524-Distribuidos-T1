@@ -1,7 +1,7 @@
 .git
 **/.gitignore
 report
-test/img_out/*.png
+test/out/*.png
 atom.command
 d_hercules.sh
 d_tripio.sh
