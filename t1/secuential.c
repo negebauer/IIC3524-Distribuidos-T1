@@ -45,7 +45,6 @@ int main(int argc, char *argv[]) {
 
   /* Let's create our new image */
   clock_t clock_start = clock();
-  int threads = 1;
   int repeat = atoi(argv[4]);
   for (int r = 0; r < repeat; r++) {
     Image *img_in = imgs[0];
@@ -90,8 +89,7 @@ int main(int argc, char *argv[]) {
   }
   clock_t clock_end = clock();
   float mask_clock = (float)(clock_end - clock_start) / CLOCKS_PER_SEC;
-  printf("Apply mask took\nCPU total:\t%f\nCPU each:\t%f\n", mask_clock,
-         (mask_clock / threads));
+  printf("Apply mask took\nCPU each:\t%f\n", mask_clock);
 
   Image *img_out = imgs[0];
   Image *img_in = imgs[1];

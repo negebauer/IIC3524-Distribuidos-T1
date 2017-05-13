@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
   }
   clock_t clock_end = clock();
   float mask_clock = (float)(clock_end - clock_start) / CLOCKS_PER_SEC;
-  printf("Apply mask took\nCPU total:\t%f\nCPU each:\t%f\n", mask_clock,
+  printf("Apply mask took\nCPU total:\t%f\nCPU each: \t%f\n", mask_clock,
          (mask_clock / threads));
 
   Image *img_out = imgs[0];
