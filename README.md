@@ -1,5 +1,8 @@
 # IIC3524-T1-negebauer
 
+To download `really_big.png` go to
+https://images.alphacoders.com/789/789452.jpg
+
 Corriendo el programa en la imagen lena con blur blur_3 con 6 repeticiones se obtiene
 
 ```

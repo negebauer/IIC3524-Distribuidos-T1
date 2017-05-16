@@ -1,18 +1,17 @@
 .git
 **/.gitignore
-report
+**/.DS_Store
+# report
 test/out/*.png
 atom.command
-d_hercules.sh
-d_tripio.sh
 deploy.sh
 exclude.txt
 i_parallel.png
 i_secuential.png
 Makefile
 parallel
-README.md
+# README.md
 secuential
 t1.log
+t1_really_big.log
 tarea1.pdf
-**/.DS_Store
