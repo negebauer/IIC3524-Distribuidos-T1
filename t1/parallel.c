@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
   for (int r = 0; r < repeat; r++) {
     Image *img_in = imgs[0];
     Image *img_out = imgs[1];
-#pragma omp parallel for
+#pragma omp parallel for schedule(dynamic)
     for (int img_row = 0; img_row < img_in->height; img_row++) {
       for (int img_col = 0; img_col < img_in->width; img_col++) {
         // Let's clear the image first
