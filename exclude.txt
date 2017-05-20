@@ -15,3 +15,4 @@ secuential
 t1.log
 t1_really_big.log
 tarea1.pdf
+tripio_run.sh
