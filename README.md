@@ -1,136 +1,25 @@
-# IIC3524-T1-negebauer
+# Tarea 1 HPC
 
-To download `really_big.png` go to
-https://images.alphacoders.com/789/789452.jpg
+## Instrucciones para correr
 
-Corriendo el programa en la imagen lena con blur blur_3 con 6 repeticiones se obtiene
-
+Se puede correr la versión secuencial y paralela con un solo comando, el script `run.sh`. Este tiene el siguiente formato:  
+```sh
+chmod +x ./run.sh # No olvidemos hacer que sea executable
+./run.sh <imagen input> <filtro> <repeticiones>
 ```
-1 threads
---- parallel ---
-CPU total:	0.592061
-CPU each: 	0.592061
 
---- secuential ---
-CPU total:	0.502388
+Los valores por defecto son
 
-2 threads
---- parallel ---
-CPU total:	0.592369
-CPU each: 	0.296185
+|variable|valor|
+|:-:|:-:|
+|imagen|big.png|
+|filtro|blur_3.txt|
+|repeticiones|3|
 
---- secuential ---
-CPU total:	0.502287
+Las imagenes se ubican en `./test/img` y son 3: lena.png, big.png y really_big.png
 
-3 threads
---- parallel ---
-CPU total:	1.019773
-CPU each: 	0.339924
+Los filtros se ubican en `./test/kernel` y son 2: blur_3.txt y blur_6.txt
 
---- secuential ---
-CPU total:	0.502320
+El funcionamiento de los filtros consiste en una primera línea que define el alto, una segunda que defina el ancho y luego la matriz a usar. Esto permite tener más filtros que solo blur, a costo de tener que poner los valores a mano en el .txt.
 
-4 threads
---- parallel ---
-CPU total:	0.612770
-CPU each: 	0.153193
-
---- secuential ---
-CPU total:	0.501937
-
-5 threads
---- parallel ---
-CPU total:	0.986630
-CPU each: 	0.197326
-
---- secuential ---
-CPU total:	0.502012
-
-6 threads
---- parallel ---
-CPU total:	0.995426
-CPU each: 	0.165904
-
---- secuential ---
-CPU total:	0.502595
-
-7 threads
---- parallel ---
-CPU total:	1.072034
-CPU each: 	0.153148
-
---- secuential ---
-CPU total:	0.502102
-
-8 threads
---- parallel ---
-CPU total:	1.200921
-CPU each: 	0.150115
-
---- secuential ---
-CPU total:	0.502453
-
-9 threads
---- parallel ---
-CPU total:	1.120213
-CPU each: 	0.124468
-
---- secuential ---
-CPU total:	0.502161
-
-10 threads
---- parallel ---
-CPU total:	1.116898
-CPU each: 	0.111690
-
---- secuential ---
-CPU total:	0.502274
-
-11 threads
---- parallel ---
-CPU total:	1.088980
-CPU each: 	0.098998
-
---- secuential ---
-CPU total:	0.501573
-
-12 threads
---- parallel ---
-CPU total:	1.042130
-CPU each: 	0.086844
-
---- secuential ---
-CPU total:	0.502034
-
-13 threads
---- parallel ---
-CPU total:	1.086630
-CPU each: 	0.083587
-
---- secuential ---
-CPU total:	0.501650
-
-14 threads
---- parallel ---
-CPU total:	1.056257
-CPU each: 	0.075447
-
---- secuential ---
-CPU total:	0.502071
-
-15 threads
---- parallel ---
-CPU total:	1.077383
-CPU each: 	0.071826
-
---- secuential ---
-CPU total:	0.501899
-
-16 threads
---- parallel ---
-CPU total:	1.089733
-CPU each: 	0.068108
-
---- secuential ---
-CPU total:	0.502221
-```
+Si se quiere correr solo la versión paralela basta comentar la lína #37 de `run.sh`
